@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAVIC MESSAGING FOR FISHERMEN</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
+    <body>
+        <div id="loginContainer" class="login-container">
+            <header class="header">
+                <a href="file:///C:/Users/abhin/Desktop/INTERNSHIP%20TASK/main.html">
+                <img src="https://www.elenageo.com/static/media/elena-site-logo-558_x_106-removebg-preview.1dc64bdd.png" alt="Elena Geo Logo" class="logo">
+            </a>
+            <h1 class="title">NAVIC MESSAGING FOR FISHERMEN</h1>
+            <div style="width: 80px;"></div>
+        </header>
+        <main class="main-content">
+            <div class="auth-container">
+                <!-- Sign In-->
+                <div id="signInForm">
+                    <div class="auth-icon">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </div>
+                    <h2 class="auth-title">Welcome Back</h2>
+                    <p class="auth-subtitle">Sign in to access NAVIC services</p>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label class="form-label" for="username">
+                                <i class="fas fa-user"></i>
+                                Username
+                            </label>
+                            <input type="text" id="username" class="form-input" placeholder="Enter your username" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="password">
+                                <i class="fas fa-lock"></i>
+                                Password
+                            </label>
+                            <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                        </div>
+                        <div class="forgot-password">
+                            <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="auth-button">Sign In</button>
+                    </form>
+                    <div class="auth-switch">
+                        <span>Don't have an account?</span>
+                        <button onclick="showSignUp()">Sign Up</button>
+                    </div>
+                </div>
+                <!-- Sign Up -->
+                <div id="signUpForm" style="display: none;">
+                    <div class="auth-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h2 class="auth-title">Create Account</h2>
+                    <p class="auth-subtitle">Sign up to access NAVIC services</p>
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label class="form-label" for="newUsername">
+                                <i class="fas fa-user"></i>
+                                Username
+                            </label>
+                            <input type="text" id="newUsername" class="form-input" placeholder="Choose a username" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="newEmail">
+                                <i class="fas fa-envelope"></i>
+                                Email Address
+                            </label>
+                            <input type="email" id="newEmail" class="form-input" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="newPassword">
+                                <i class="fas fa-lock"></i>
+                                Password
+                            </label>
+                            <input type="password" id="newPassword" class="form-input" placeholder="Create a password" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="confirmPassword">
+                                <i class="fas fa-lock"></i>
+                                Confirm Password
+                            </label>
+                            <input type="password" id="confirmPassword" class="form-input" placeholder="Confirm your password" required>
+                        </div>
+                        <button type="submit" class="auth-button">Create Account</button>
+                    </form>
+                    <div class="auth-switch">
+                        <span>Already have an account?</span>
+                        <button onclick="showSignIn()">Sign In</button>
+                    </div>
+                </div>
+                <!-- Forgot Password-->
+                <div id="forgotPasswordForm" style="display: none;">
+                    <div class="auth-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h2 class="auth-title">Reset Password</h2>
+                    <p class="auth-subtitle">Enter your email to receive reset instructions</p>
+                    <form id="forgotForm">
+                        <div class="form-group">
+                            <label class="form-label" for="resetEmail">
+                                <i class="fas fa-envelope"></i>
+                                Email Address
+                            </label>
+                            <input type="email" id="resetEmail" class="form-input" placeholder="Enter your email" required>
+                        </div>
+                        <button type="submit" class="auth-button">Send Reset Link</button>
+                    </form>
+                    <div class="auth-switch">
+                        <span>Remember your password?</span>
+                        <button onclick="showSignIn()">Sign In</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="https://www.elenageo.com/static/media/elena-site-logo-558_x_106-removebg-preview.1dc64bdd.png" alt="Elena Geo Logo">
+                <span>Copyright © 2025 Elena Geo Tech Pvt Ltd. All Rights Reserved</span>
+            </div>
+        </footer>
+    </div>
+    <!-- Dashboard -->
+    <div id="dashboardContainer" class="dashboard">
+        <nav class="nav-bar">
+            <div class="nav-left">
+                <a href="file:///C:/Users/abhin/Desktop/INTERNSHIP%20TASK/main.html">
+                    <img src="https://www.elenageo.com/static/media/elena-site-logo-558_x_106-removebg-preview.1dc64bdd.png" alt="Elena Geo Logo" class="nav-logo">
+                </a>
+                <span class="welcome-text">Welcome, <span id="currentUser">User</span></span>
+            </div>
+            <div class="nav-right">
+                <div class="dropdown-container">
+                    <button class="dropdown-btn" onclick="toggleDropdown()">
+                        <i id="currentIcon" class="fas fa-map" style="color: #666;"></i>
+                        <span class="dropdown-text" id="currentSelection">Show All Layers</span>
+                        <i class="fas fa-chevron-down dropdown-arrow" id="dropdownArrow"></i>
+                    </button>
+                    <div id="dropdownMenu" class="dropdown-menu">
+                        <button class="dropdown-item" onclick="setActiveOverlay('location')" data-overlay="location">
+                            <i class="fas fa-map-marker-alt" style="color: #1976d2;"></i>
+                            <span>Current Location</span>
+                        </button>
+                        <button class="dropdown-item" onclick="setActiveOverlay('highway')" data-overlay="highway">
+                            <span style="color: #388e3c; font-size: 1.25rem;">🌊</span>
+                            <span>High Tide Zones</span>
+                        </button>
+                        <button class="dropdown-item" onclick="setActiveOverlay('cyclone')" data-overlay="cyclone">
+                            <i class="fas fa-wind" style="color: #d32f2f;"></i>
+                            <span>Cyclone Info</span>
+                        </button>
+                        <button class="dropdown-item" onclick="setActiveOverlay('pfz')" data-overlay="pfz">
+                            <i class="fas fa-anchor" style="color: #f57c00;"></i>
+                            <span>Potential Fishing Zone (PFZ)</span>
+                        </button>
+                        <button class="dropdown-item" onclick="setActiveOverlay('restricted')" data-overlay="restricted">
+                            <i class="fas fa-ban" style="color: #d32f2f;"></i>
+                            <span>Restricted Areas</span>
+                        </button>
+                        <button class="dropdown-item" onclick="setActiveOverlay('datsg')" data-overlay="datsg">
+                            <span style="color: #7b1fa2; font-size: 1.25rem;">🛰️</span>
+                            <span>DATSG</span>
+                        </button>
+                        <button class="dropdown-item active" onclick="setActiveOverlay('all')" data-overlay="all">
+                            <i class="fas fa-map" style="color: #666;"></i>
+                            <span>Show All Layers</span>
+                            <div class="active-indicator"></div>
+                        </button>
+                    </div>
+                </div>
+                <div class="notification-container">
+                    <button class="notification-btn" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notificationBadge">3</span>
+                    </button>  
+                    <div id="notificationDropdown" class="notification-dropdown">
+                        <div class="notification-header">
+                            Recent Notifications
+                        </div>
+                        <div class="notification-list">
+                            <div class="notification-item">
+                                <div class="notification-content">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-wind" style="color: #f44336;"></i>
+                                    </div>
+                                    <div class="notification-text">
+                                        <div class="notification-title">Weather Alert</div>
+                                        <div class="notification-message">Strong winds expected in Bay of Bengal (65-75 km/h). Fishermen advised to return to shore immediately.</div>
+                                        <div class="notification-time">2 hours ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-content">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-anchor" style="color: #2196f3;"></i>
+                                    </div>
+                                    <div class="notification-text">
+                                        <div class="notification-title">Fishing Zone Update</div>
+                                        <div class="notification-message">New PFZ identified near Chennai coast - High fish concentration detected in sector 15-20.</div>
+                                        <div class="notification-time">4 hours ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-content">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-satellite" style="color: #4caf50;"></i>
+                                    </div>
+                                    <div class="notification-text">
+                                        <div class="notification-title">System Message</div>
+                                        <div class="notification-message">DATSG satellite data updated - Latest oceanographic information available for download.</div>
+                                        <div class="notification-time">6 hours ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notification-footer">
+                            <button onclick="viewAllNotifications()">View All Notifications</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </nav>
+        <div class="map-container">
+            <div id="map"></div>
+            <!-- Map Legend -->
+            <div class="legend">
+                <h3>Map Legend</h3>
+                <div class="legend-item">
+                    <div>📍</div>
+                    <span>Your Location</span>
+                </div>
+                <div class="legend-item">
+                    <span style="font-size: 16px; width: 16px;">🐟</span>
+                    <span>Fishing Zones</span>
+                </div>
+                <div class="legend-item">
+                    <span style="font-size: 16px; width: 16px;">🌀</span>
+                    <span>Cyclone Areas</span>
+                </div>
+
+                <div class="legend-item">
+                    <span style="font-size: 16px; width: 16px;">🌊</span>
+                    <span>High Tide Zones</span>
+                </div>
+                <div class="legend-item">
+                    <span style="font-size: 16px; width: 16px;">🛰️</span>
+                    <span>DATSG Stations</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-line"></div>
+                    <span>Maritime Boundary</span>
+                </div>
+                <div class="legend-item">
+                    <i class="fas fa-ban" style="color: #d32f2f; font-size: 1rem;"></i>
+                    <span>Restricted Area</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        let map;
+        let layers = {};
+        let currentUser = '';
+        let activeOverlay = 'all';
+        let notificationCount = 3;
+        let userLocation = null;
+        const getRegisteredUsers = () => {
+            return JSON.parse(localStorage.getItem('navic_users') || JSON.stringify({
+                }));
+        };
+        // Overlay options
+        const overlayOptions = {
+            'location': { label: 'Current Location', icon: 'fas fa-map-marker-alt', color: '#1976d2' },
+            'highway': { label: 'High Tide Zones', icon: '🌊', color: '#388e3c' },
+            'cyclone': { label: 'Cyclone Info', icon: '🌀', color: '#d32f2f' },
+            'pfz': { label: 'Potential Fishing Zone (PFZ)', icon: '🐟', color: '#f57c00' },
+            'datsg': { label: 'DATSG', icon: '🛰️', color: '#7b1fa2' },
+            'all': { label: 'Show All Layers', icon: 'fas fa-map', color: '#666' }
+        };
+
+        // Authentication
+        function showSignUp() {
+            document.getElementById('signInForm').style.display = 'none';
+            document.getElementById('signUpForm').style.display = 'block';
+            document.getElementById('forgotPasswordForm').style.display = 'none';
+        }
+        function showSignIn() {
+            document.getElementById('signUpForm').style.display = 'none';
+            document.getElementById('signInForm').style.display = 'block';
+            document.getElementById('forgotPasswordForm').style.display = 'none';
+
+        }
+        function showForgotPassword() {
+            document.getElementById('signInForm').style.display = 'none';
+            document.getElementById('signUpForm').style.display = 'none';
+            document.getElementById('forgotPasswordForm').style.display = 'block';
+        }
+        function login(username) {
+            currentUser = username;
+            document.getElementById('currentUser').textContent = username;
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('dashboardContainer').style.display = 'flex';
+            getCurrentLocation();
+            setTimeout(initializeMap, 500);
+        }
+        function logout() {
+            if (map) {
+                map.remove();
+                map = null;
+            }
+            layers = {};
+            activeOverlay = 'all';
+            notificationCount = 3;
+            updateNotificationBadge(notificationCount);
+            document.getElementById('dashboardContainer').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            showSignIn();
+        }
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                    },
+                    (error) => {
+                        userLocation = { lat: 13.0827, lng: 80.2707 };
+                    }
+                );
+            } else {
+                userLocation = { lat: 13.0827, lng: 80.2707 };
+            }
+        }
+        // Event listeners for forms
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const registeredUsers = getRegisteredUsers();
+            if (registeredUsers[username] && registeredUsers[username].password === password) {
+                login(username);
+            } else if (!registeredUsers[username]) {
+                alert('User not found. Please register first or check your username.');
+            } else {
+                alert('Incorrect password. Please try again.');
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('newUsername').value;
+            const email = document.getElementById('newEmail').value;
+            const password = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (username && email && password && password === confirmPassword) {
+                const existingUsers = getRegisteredUsers();
+                if (existingUsers[username]) {
+                    alert('Username already exists. Please choose a different username.');
+                    return;
+                }
+                existingUsers[username] = { email: email, password: password };
+                localStorage.setItem('navic_users', JSON.stringify(existingUsers));
+                alert('Account created successfully! You can now sign in.');
+                showSignIn();        document.getElementById('newUsername').value = '';
+                document.getElementById('newEmail').value = '';
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+            } else if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+            } else {
+                alert('Please fill all fields');
+            }
+        });
+
+
+        document.getElementById('forgotForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('resetEmail').value;
+            
+            const registeredUsers = getRegisteredUsers();
+            const userFound = Object.values(registeredUsers).find(user => user.email === email);
+
+            
+            if (userFound) {
+                alert("A password reset verification email has been sent to: " + email + "\n\nPlease check your inbox and follow the instructions to reset your password.");
+                showSignIn();
+            } else {
+                alert("Email not found in our records. Please check your email address or register for a new account.");
+            }
+        });
+
+        // Dropdown and notification
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdownMenu');
+            const arrow = document.getElementById('dropdownArrow');
+            dropdown.classList.toggle('show');
+            arrow.classList.toggle('open');
+            document.getElementById('notificationDropdown').classList.remove('show');
+        }
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.classList.toggle('show');
+            document.getElementById('dropdownMenu').classList.remove('show');
+            document.getElementById('dropdownArrow').classList.remove('open');
+            
+            if (dropdown.classList.contains('show')) {
+                notificationCount = 0;
+                updateNotificationBadge(notificationCount);
+            }
+        }
+
+        function viewAllNotifications() {
+            alert('Viewing all notifications...\n\nThis feature will show the complete notification history and management options.');
+            document.getElementById('notificationDropdown').classList.remove('show');
+            
+        }
+        // Close dropdowns
+        document.addEventListener('click', function(event) {
+            const overlayDropdown = document.getElementById('dropdownMenu');
+            const overlayBtn = document.querySelector('.dropdown-btn');
+            const notificationDropdown = document.getElementById('notificationDropdown');
+            const notificationBtn = document.querySelector('.notification-btn');
+            if (!overlayDropdown.contains(event.target) && !overlayBtn.contains(event.target)) {
+                overlayDropdown.classList.remove('show');
+                document.getElementById('dropdownArrow').classList.remove('open');
+            }
+            if (!notificationDropdown.contains(event.target) && !notificationBtn.contains(event.target)) {
+                notificationDropdown.classList.remove('show');
+            }
+        });
+        function setActiveOverlay(overlay) {
+            activeOverlay = overlay;           
+            // Update active state in dropdown
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.classList.remove('active');
+                const indicator = item.querySelector('.active-indicator');
+                if (indicator) {
+                    indicator.remove();
+                }
+            });        
+            const activeItem = document.querySelector(`[data-overlay="${overlay}"]`);
+            activeItem.classList.add('active');
+            const indicator = document.createElement('div');
+            indicator.className = 'active-indicator';
+            activeItem.appendChild(indicator); 
+            // Update dropdown
+            const option = overlayOptions[overlay];
+            if (option.icon.startsWith('fas')) {
+                document.getElementById('currentIcon').className = option.icon;
+                document.getElementById('currentIcon').style.color = option.color;
+                document.getElementById('currentIcon').textContent = '';
+            } else {
+                document.getElementById('currentIcon').className = '';
+                document.getElementById('currentIcon').style.color = option.color;
+                document.getElementById('currentIcon').textContent = option.icon;
+                document.getElementById('currentIcon').style.fontSize = '1.25rem';
+            }
+            document.getElementById('currentSelection').textContent = option.label;  
+            updateMapLayers();
+            document.getElementById('dropdownMenu').classList.remove('show');
+            document.getElementById('dropdownArrow').classList.remove('open');
+        }
+        function updateNotificationBadge(count) {
+            const badge = document.getElementById('notificationBadge');
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+        }
+        // Map initialization
+        function initializeMap() {
+            if (!userLocation) {
+                setTimeout(initializeMap, 500);
+                return;
+            }
+            map = L.map('map', {
+                center: [userLocation.lat, userocation.lng],
+                zoom: 8,
+                zoomControl: true,
+            });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: ''
+            }).addTo(map);
+            layers = {
+                boundary: new L.LayerGroup(),
+                fishing: new L.LayerGroup(),
+                cyclone: new L.LayerGroup(),
+                highway: new L.LayerGroup(),
+                datsg: new L.LayerGroup(),
+                tides: new L.LayerGroup(),
+                location: new L.LayerGroup(),
+                restricted: new L.LayerGroup(),
+            };
+            // Add current location
+            const customIcon = L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/128/149/149060.png',
+                iconSize: [32, 32],
+                iconAnchor: [16, 32],
+                popupAnchor: [0, -32]
+            });
+            const locationMarker = L.marker([userLocation.lat, userLocation.lng], {
+                icon: customIcon
+            });
+            locationMarker.bindPopup('<b>Your Current Location</b><br>Live position tracking');
+            layers.location.addLayer(locationMarker);
+            // maritime boundary
+            const indianOceanBoundary = [
+  [23.0, 60.0],   // near Pakistan
+  [20.0, 61.0],   // Arabian Sea west
+  [15.0, 62.0],
+  [10.0, 63.0],
+  [7.0, 64.0],
+  [5.0, 68.0],    // southwest of Lakshadweep
+  // Southern boundary south of India
+  [5.0, 75.0],
+  [6.0, 80.0],    // south of Sri Lanka
+  // Bay of Bengal east of India
+  [10.0, 85.0],
+  [15.0, 90.0],
+  [19.0, 91.0],   // near Myanmar
+  [20.0, 89.0],
+  [21.0, 88.0],   // Bangladesh border
+  // North-east India
+  [22.0, 87.0],
+  [21.0, 85.0],
+  [19.0, 83.0],
+  // East coast India
+  [17.0, 82.0],
+  [15.0, 81.0],
+  [13.0, 80.0],
+  [10.0, 79.0],
+  // West coast India again
+  [15.0, 73.0],
+  [18.0, 70.0],
+  [20.0, 68.0],
+  [22.0, 65.0],
+  [23.0, 60.0]   // close polygon
+];
+const boundary = L.polygon(indianOceanBoundary, {
+  color: '#0ea5e9',
+  weight: 2,
+  opacity: 0.8,
+  fillColor: '#3b82f6',
+  fillOpacity: 0.2
+}).bindPopup('<b>🗺️ Indian Maritime Area</b><br>Unshaped polygon boundary');
+
+layers.boundary.addLayer(boundary);
+
+// Optional popup
+boundary.bindPopup('<b>🗺️ Indian Maritime Boundary</b><br>200 Nautical Miles EEZ');
+
+layers.boundary.addLayer(boundary);
+
+            // pfz Message Markers (inline JSON)
+            const fishingZones = [];
+            const fishIcon = L.divIcon({
+                className: 'fishing-marker',
+                html: '<div style="font-size: 20px;">🐟</div>',
+                iconSize: [24, 24],
+                iconAnchor: [12, 12]
+            });
+            const seen = new Set();
+            fishingZones.forEach(zone => {
+            const pfz = zone["Potential Fishing Zone"];
+            if (!pfz || !pfz.locations || pfz.locations.length === 0) return;
+
+            const polygonCoords = pfz.locations.map(loc => [loc.latitude, loc.longitude]);
+
+            const polygon = L.polygon(polygonCoords, {
+                color: '#f57c00',
+                fillColor: '#f57c00',
+                fillOpacity: 0.3,
+                weight: 2
+            }).bindPopup(`
+                <b>🐟 Potential Fishing Zone</b><br>
+                PRN ID: ${zone["PRN ID"]}<br>
+                Time: ${zone.TOWC}<br>
+                Area with high fish concentration
+            `);
+
+            layers.fishing.addLayer(polygon);
+        });
+// cyclone Message Markers (inline JSON)
+            const cycloneIcon = L.divIcon({
+                className: 'cyclone-marker',
+                html: '<div style="font-size: 20px;">🌀</div>',
+                iconSize: [24, 24],
+                iconAnchor: [12, 12]
+            });
+            const cycloneWarnings = [];
+            cycloneWarnings.forEach(entry => {
+                const c = entry.CW1_Message;
+                const marker = L.marker(
+                    [c.Latitude, c.Longitude],
+                    { icon: cycloneIcon }
+                ).bindPopup(
+                    `<b>${entry.Service_ID}</b><br>` +
+                    `Port: ${entry.Port_Name_1}<br>` +
+                    `System: ${c.System_Category} (${c.System_Name})<br>` +
+                    `Location: ${c.Location_Code}<br>` +
+                    `Date: ${c.Date}<br>` +
+                    `Time: ${c.Time}<br>` +
+                    `Direction Full: ${c.Direction_Full}<br>` +
+                    `Direction Code: ${c.Direction}<br>` +
+                    `Direction Arrow: ${c.Direction_Arrow}<br>` +
+                    `Bearing: ${c.Direction_Bearing_Degrees}&deg;<br>` +
+                    `Distance: ${c.Distance_nm} nm<br>` +
+                    `Wind: ${c.Max_Wind_Speed_kmph} km/h<br>` +
+                    `Waves: ${c.Max_Wave_Height_m} m<br>` +
+                    `Current: ${c.Max_Current_Speed_mps} m/s<br>` +
+                    `<i>${c.Advice_Code}</i>`
+                );
+                layers.cyclone.addLayer(marker);
+            });
+// hightides Message Markers (inline JSON)
+            const highTideZones = [];
+            highTideZones.forEach(tide => {
+                const marker = L.marker([tide.lat, tide.lng], {
+                    icon: L.divIcon({
+                        className: 'tide-marker',
+                        html: '<div style="font-size: 20px;">🌊</div>',
+                        iconSize: [24, 24],
+                        iconAnchor: [12, 12],
+                    })
+                });
+                marker.bindPopup(`<b>🌊 ${tide.name}</b><br>High Tide Level<br>Current Height: ${tide.height}<br>Status: Active High Tide Zone`);
+                layers.tides.addLayer(marker);
+                layers.highway.addLayer(marker);
+            });
+            if (restrictedAreas && Array.isArray(restrictedAreas)) {
+            restrictedAreas.forEach(area => {
+                const polygon = L.polygon(area.coordinates, {
+                    color: '#d32f2f',
+                    fillColor: '#f44336',
+                    fillOpacity: 0.4
+                }).bindPopup(`<b>🚫 Restricted Area</b><br>${area.name}`);
+                layers.restricted.addLayer(polygon);
+            });
+        }
+        polygon.openPopup();
+
+
+
+         // 📡 DATSG Message Markers (inline JSON)
+        const datsgData = [];
+        const datsgIcon = L.divIcon({
+        className: 'datsg-marker',
+        html: '<div style="font-size: 20px;">🛰️</div>',
+        iconSize: [24, 24],
+        iconAnchor: [12, 12]
+        });
+
+        // Add markers to map
+        datsgData.forEach((entry, index) => {
+        const msg = entry["DAT Response"];
+        const messageText =
+            msg["Text Message"] || msg["Emergency Message"] || msg["Control Word"] || "No message";
+
+        const popup = `
+            <b>📡 DATSG Message</b><br>
+            Time: ${entry.TOWC}<br>
+            Terminal ID: ${msg["Terminal Id"]}<br>
+            Type: ${msg["Control Word"]}<br>
+            Message: ${messageText}<br>
+            PRN ID: ${entry["PRN ID"]}
+        `;
+
+        // Distribute markers slightly using lat offset to avoid overlap
+        const lat = 13.08 + (index * 0.01);
+        const lng = 80.27;
+
+        const marker = L.marker([lat, lng], { icon: datsgIcon }).bindPopup(popup);
+        layers.datsg.addLayer(marker);
+        });
+            updateNotificationBadge(notificationCount);
+            updateMapLayers();
+        }
+
+        function updateMapLayers() {
+            if (!map || !layers || Object.keys(layers).length === 0) return;
+            Object.values(layers).forEach(layer => {
+                map.removeLayer(layer);
+            });
+            switch (activeOverlay) {
+                case 'location':
+                    map.addLayer(layers.location);
+                    map.addLayer(layers.boundary);
+                    if (userLocation) {
+                        map.setView([userLocation.lat, userLocation.lng], 10);
+                    }
+                    break;
+                case 'highway':
+                    map.addLayer(layers.highway);
+                    map.addLayer(layers.tides);
+                    map.addLayer(layers.boundary);
+                    break;
+                case 'cyclone':
+                    map.addLayer(layers.cyclone);
+                    map.addLayer(layers.boundary);
+                    break;
+                case 'pfz':
+                    map.addLayer(layers.fishing);
+                    map.addLayer(layers.boundary);
+                    break;
+                case 'datsg':
+                    map.addLayer(layers.datsg);
+                    map.addLayer(layers.boundary);
+                    break;
+                case 'restricted':
+                    map.addLayer(layers.restricted);
+                    map.addLayer(layers.boundary);
+                    break;    
+                case 'all':
+                default:
+                    Object.values(layers).forEach(layer => {
+                        map.addLayer(layer);
+                    });
+                    break;
+                
+
+            }
+        }
+    </script>
+    <!-- loading data from js -->
+     <script src="tuna.js"></script>
+     <script src="cyclone.js"></script>
+     <script src="datsg.js"></script>
+     <script src="tide.js"></script>
+     <script src="restricted.js"></script>
+
+
+    <!-- main logic -->
+     <script src="main.js"></script>
+    </body>
+</html>
+
+
